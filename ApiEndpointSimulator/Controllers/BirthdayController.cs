@@ -1,36 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using ApiEndpointSimulator.CsvParser;
+using ApiEndpointSimulator.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace ApiEndpointSimulator.Controllers
 {
-    [Route("api/[controller]")]
-    public class BirthdayController : Controller
+    [ApiController]
+    [Route("api/birthdaycontroller")]
+    public class BirthdayController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("lastname/{lastname}")]
+        public BirthdayPerson GetBirthDayPersonInfoByLastName(string lastName)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return CsvReaderWrapper.ReadFromCsvFile(ConfigurationWrapper.GetBirthdayCsvFilePath())
+                                   .First(x => x.LastName == lastName);
         }
     }
 }
