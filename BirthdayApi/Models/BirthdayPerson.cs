@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ApiEndpointSimulator.Models
+﻿namespace BirthdayApi.Models
 {
     public class BirthdayPerson
     {

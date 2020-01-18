@@ -1,9 +1,9 @@
-﻿using ApiEndpointSimulator.CsvParser;
-using ApiEndpointSimulator.Models;
+﻿using BirthdayApi.CsvParser;
+using BirthdayApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace ApiEndpointSimulator.Controllers
+namespace BirthdayApi.Controllers
 {
     [ApiController]
     [Route("api/birthdaycontroller")]

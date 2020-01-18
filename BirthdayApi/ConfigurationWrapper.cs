@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace ApiEndpointSimulator
+namespace BirthdayApi
 {
     public static class ConfigurationWrapper
     {

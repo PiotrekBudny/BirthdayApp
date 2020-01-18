@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace ApiEndpointSimulator
+namespace BirthdayApi
 {
     public class Program
     {
