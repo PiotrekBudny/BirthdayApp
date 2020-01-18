@@ -26,7 +26,7 @@ namespace BirthdayApi.Controllers
             }
             catch(InvalidOperationException exception)
             {
-                return NotFound(500);
+                return StatusCode(500);
             }
 
             if (response.BirthdayPeopleList == null || !response.BirthdayPeopleList.Any())
