@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,6 +19,11 @@ namespace BirthdayApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ProducesAttribute("application/json"));
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
