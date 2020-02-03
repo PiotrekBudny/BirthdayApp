@@ -1,10 +1,9 @@
-﻿using BirthdayApi.CsvParser;
-using BirthdayApi.Models;
+﻿using BirthdayApi.Models;
+using BirthdayApi.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-
 
 namespace BirthdayApi.Controllers
 {
@@ -12,24 +11,39 @@ namespace BirthdayApi.Controllers
     [Route("api/birthdaycontroller")]
     public class BirthdayController : ControllerBase
     {
+        private AddBirthdayToListRequestValidator _addBirthdayRequestValidator;
+        private GetBirthdayPeopleDetailsResponseProvider _getBirthdayPeopleDetailsResponseProvider;
+        private AddBirthdayToListResponseProvider _addBirthdayToListResponseProvider;
+        private AddBirthdayToTheListHelper _addBirthdayHelper;
+
+        public BirthdayController()
+        {
+            _addBirthdayRequestValidator = new AddBirthdayToListRequestValidator();
+            _addBirthdayToListResponseProvider = new AddBirthdayToListResponseProvider();
+            _getBirthdayPeopleDetailsResponseProvider = new GetBirthdayPeopleDetailsResponseProvider();
+            _addBirthdayHelper = new AddBirthdayToTheListHelper();
+        }
+                
         [HttpGet("lastname/{lastname}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetBirthDayPersonInfoByLastName(string lastName)
         {
             var response = new GetBirthDayPeopleDetailsResponse();
-            
             try
             {
-                response = ResponseBuilder.BuildGetBirthdayPersonDetailsResponse(CsvReaderWrapper.ReadFromCsvFile(ConfigurationWrapper.GetBirthdayCsvFilePath())
-                                                                                                 .FindAll(x => x.LastName == lastName));          
+                response = _getBirthdayPeopleDetailsResponseProvider.GetBirthdaysFilteringByLastName(lastName);
             }
             catch(InvalidOperationException exception)
             {
                 return StatusCode(500);
             }
+            catch(Exception exception)
+            {
+                return NotFound(response);
+            }
 
-            if (response.BirthdayPeopleList == null || !response.BirthdayPeopleList.Any())
+            if (response.BirthdayPeopleList?.Any() ?? false)
             {
                 return NotFound(response);
             }
@@ -46,15 +60,14 @@ namespace BirthdayApi.Controllers
 
             try
             {
-                response = ResponseBuilder.BuildGetBirthdayPersonDetailsResponse(CsvReaderWrapper.ReadFromCsvFile(ConfigurationWrapper.GetBirthdayCsvFilePath())
-                          .FindAll(x => BirthdayValidator.ValidateIfTodayIsPersonBirthday(x.DayOfBirth) == true));
+                response = _getBirthdayPeopleDetailsResponseProvider.GetBirthdaysForToday();
             }
             catch (Exception exception)
             {
                 return NotFound();
             }
 
-            if (response.BirthdayPeopleList == null || !response.BirthdayPeopleList.Any())
+            if (response.BirthdayPeopleList?.Any() ?? false)
             {
                 return NotFound(response);
             }
@@ -68,28 +81,28 @@ namespace BirthdayApi.Controllers
         [Consumes("application/json")]
         public IActionResult AddBirthDayToTheList(AddBirthdayToTheListRequest addBirthdayToTheListRequest)
         {
-            if (!BirthdayValidator.ValidateAddBirthDayToListRequest(addBirthdayToTheListRequest))
+            
+            if (!ValidateIfAddBirthDayRequestIsValid(addBirthdayToTheListRequest))
             {
-                return BadRequest(new AddBirthdayToTheListResponse { BirthdayAdded = false,
-                Message = "Bad request"});
+                return BadRequest(_addBirthdayToListResponseProvider.GetBadRequstResponse());
             }
-
-            var birthdayPerson = new BirthdayPerson()
-            {
-                LastName = addBirthdayToTheListRequest.LastName,
-                FirstName = addBirthdayToTheListRequest.FirstName,
-                DayOfBirth = addBirthdayToTheListRequest.DayOfBirth
-            };
             
             try
             {
-                CsvWriterWrapper.WriteToCsvFile(ConfigurationWrapper.GetBirthdayCsvFilePath(), birthdayPerson);
+                _addBirthdayHelper.AddNewBirthdayPersonToCsvfile(addBirthdayToTheListRequest);
             }
+            
             catch(Exception exception)
             {
                 throw new Exception(exception.Message);
             }
-            return Created("",new AddBirthdayToTheListResponse {BirthdayAdded = true});
+            
+            return Created(string.Empty,_addBirthdayToListResponseProvider.GetCreatedResponse());
+        }
+
+        private bool ValidateIfAddBirthDayRequestIsValid(AddBirthdayToTheListRequest addBirthdayToTheListRequest)
+        {
+            return _addBirthdayRequestValidator.Validate(addBirthdayToTheListRequest).IsValid;
         }
     }
 }

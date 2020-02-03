@@ -6,12 +6,24 @@ using System.IO;
 using System.Linq;
 
 namespace BirthdayApi.CsvParser
-{
-    public static class CsvReaderWrapper
+{  
+    public interface ICsvReaderWrapper
     {
-        public static List<BirthdayPerson> ReadFromCsvFile(string filePath)
+        List<BirthdayPerson> ReadFromBirthDayCsvFile();
+    }
+        
+    public class CsvReaderWrapper : ICsvReaderWrapper
+    {
+        ConfigurationWrapper configurationWrapper;
+        
+        public CsvReaderWrapper()
         {
-            using (var reader = new StreamReader(filePath))
+            configurationWrapper = new ConfigurationWrapper();
+        }
+        
+        public List<BirthdayPerson> ReadFromBirthDayCsvFile()
+        {
+            using (var reader = new StreamReader(configurationWrapper.GetBirthdayCsvFilePath()))
             using (var csvReader = new CsvReader(reader, new CultureInfo("EN")))
             {
                 csvReader.Configuration.HasHeaderRecord = true;
