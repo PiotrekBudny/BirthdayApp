@@ -1,4 +1,5 @@
 ﻿using BirthdayApi.Models;
+using BirthdayApi.Providers;
 using BirthdayApi.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

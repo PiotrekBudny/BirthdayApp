@@ -9,7 +9,7 @@ namespace BirthdayApi
      
     public class ConfigurationWrapper
     {
-        public  string GetBirthdayCsvFilePath()
+        public string GetBirthdayCsvFilePath()
         {
         return InitializeConfigurationBuilder().Build()["Filepath:Birthdaycsv"];            
         }

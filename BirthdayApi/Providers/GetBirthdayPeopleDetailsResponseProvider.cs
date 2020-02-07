@@ -4,8 +4,8 @@ using BirthdayApi.Validators;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BirthdayApi
-{   
+namespace BirthdayApi.Providers
+{
     public interface IGetBirthdayPeopleDetailsResponseProvider
     {
         GetBirthDayPeopleDetailsResponse GetBirthdaysFilteringByLastName(string lastName);
@@ -50,6 +50,6 @@ namespace BirthdayApi
             {
                 BirthdayPeopleList = peopleList
             };
-        }    
+        }
     }
 }

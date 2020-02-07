@@ -1,4 +1,6 @@
-﻿using BirthdayApi.Utils;
+﻿using BirthdayApi.Providers;
+using BirthdayApi.Utils;
+using System;
 
 namespace BirthdayApi.Validators
 {
@@ -12,8 +14,16 @@ namespace BirthdayApi.Validators
         public bool ValidateIfTodayIsPersonBirthday(string dateTime)
         {
             var currentDate = new DateTimeProvider().UtcNow;
-
-            var birthday = StringFormatter.ParseToDateTimeWithoutTime(dateTime);
+            DateTime birthday;
+            
+            try
+            {
+                birthday = StringFormatter.ParseToDateTimeWithoutTime(dateTime);
+            }
+            catch(Exception exception)
+            {
+                return false;
+            }
 
             return currentDate.Day == birthday.Day && currentDate.Month == birthday.Month;
         }
