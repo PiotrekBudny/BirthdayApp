@@ -6,13 +6,13 @@ using System.Linq;
 
 namespace BirthdayApi
 {   
-    public interface IGetBirthdayPeopleResponseDetailsProvider
+    public interface IGetBirthdayPeopleDetailsResponseProvider
     {
         GetBirthDayPeopleDetailsResponse GetBirthdaysFilteringByLastName(string lastName);
         GetBirthDayPeopleDetailsResponse GetBirthdaysForToday();
     }
 
-    public class GetBirthdayPeopleDetailsResponseProvider : IGetBirthdayPeopleResponseDetailsProvider
+    public class GetBirthdayPeopleDetailsResponseProvider : IGetBirthdayPeopleDetailsResponseProvider
     {
         private CsvReaderWrapper _csvReaderWrapper;
         private BirthdayValidator _birthdayValidator;

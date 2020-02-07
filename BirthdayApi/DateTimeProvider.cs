@@ -1,14 +1,14 @@
 ﻿using System;
 
 namespace BirthdayApi
-{
+{    
     public interface IDateTimeProvider
     {
-        public DateTime GetCurrentDateTime();
+        public DateTime UtcNow { get; }
     }
-
+       
     public class DateTimeProvider : IDateTimeProvider
     {
-        public DateTime GetCurrentDateTime() => DateTime.UtcNow;
+        public DateTime UtcNow { get { return DateTime.UtcNow;  } }
     }
 }
