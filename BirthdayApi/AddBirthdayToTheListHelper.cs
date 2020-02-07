@@ -9,8 +9,6 @@ namespace BirthdayApi
         public void AddNewBirthdayPersonToCsvfile(AddBirthdayToTheListRequest addBirthdayToTheListRequest);
     }
 
-
-
     public class AddBirthdayToTheListHelper : IAddBirthdayToTheListHelper
     {
         CsvWriterWrapper csvWriterWrapper;

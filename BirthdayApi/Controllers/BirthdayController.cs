@@ -11,17 +11,17 @@ namespace BirthdayApi.Controllers
     [Route("api/birthdaycontroller")]
     public class BirthdayController : ControllerBase
     {
-        private AddBirthdayToListRequestValidator _addBirthdayRequestValidator;
-        private GetBirthdayPeopleDetailsResponseProvider _getBirthdayPeopleDetailsResponseProvider;
-        private AddBirthdayToListResponseProvider _addBirthdayToListResponseProvider;
-        private AddBirthdayToTheListHelper _addBirthdayHelper;
+        IGetBirthdayPeopleDetailsResponseProvider getBirthdayPeopleDetailsResponseProvider;
+        IAddBirthdayToListResponseProvider addBirthdayToListResponseProvider;
+        IAddBirthdayToTheListHelper addBirthdayHelper;
 
-        public BirthdayController()
+        public BirthdayController(IGetBirthdayPeopleDetailsResponseProvider getBirthdayPeopleDetailsResponseProvider,
+                                  IAddBirthdayToListResponseProvider addBirthdayToListResponseProvider,
+                                  IAddBirthdayToTheListHelper addBirthdayHelper)
         {
-            _addBirthdayRequestValidator = new AddBirthdayToListRequestValidator();
-            _addBirthdayToListResponseProvider = new AddBirthdayToListResponseProvider();
-            _getBirthdayPeopleDetailsResponseProvider = new GetBirthdayPeopleDetailsResponseProvider();
-            _addBirthdayHelper = new AddBirthdayToTheListHelper();
+            this.addBirthdayToListResponseProvider = addBirthdayToListResponseProvider;
+            this.getBirthdayPeopleDetailsResponseProvider = getBirthdayPeopleDetailsResponseProvider;
+            this.addBirthdayHelper = addBirthdayHelper;
         }
                 
         [HttpGet("lastname/{lastname}")]
@@ -32,7 +32,7 @@ namespace BirthdayApi.Controllers
             var response = new GetBirthDayPeopleDetailsResponse();
             try
             {
-                response = _getBirthdayPeopleDetailsResponseProvider.GetBirthdaysFilteringByLastName(lastName);
+                response = getBirthdayPeopleDetailsResponseProvider.GetBirthdaysFilteringByLastName(lastName);
             }
             catch(InvalidOperationException exception)
             {
@@ -60,7 +60,7 @@ namespace BirthdayApi.Controllers
 
             try
             {
-                response = _getBirthdayPeopleDetailsResponseProvider.GetBirthdaysForToday();
+                response = getBirthdayPeopleDetailsResponseProvider.GetBirthdaysForToday();
             }
             catch (Exception exception)
             {
@@ -81,28 +81,29 @@ namespace BirthdayApi.Controllers
         [Consumes("application/json")]
         public IActionResult AddBirthDayToTheList(AddBirthdayToTheListRequest addBirthdayToTheListRequest)
         {
-            
             if (!ValidateIfAddBirthDayRequestIsValid(addBirthdayToTheListRequest))
             {
-                return BadRequest(_addBirthdayToListResponseProvider.GetBadRequstResponse());
+                return BadRequest(addBirthdayToListResponseProvider.GetBadRequstResponse());
             }
             
             try
             {
-                _addBirthdayHelper.AddNewBirthdayPersonToCsvfile(addBirthdayToTheListRequest);
+                addBirthdayHelper.AddNewBirthdayPersonToCsvfile(addBirthdayToTheListRequest);
             }
             
             catch(Exception exception)
             {
-                throw new Exception(exception.Message);
+                return StatusCode(500);
             }
             
-            return Created(string.Empty,_addBirthdayToListResponseProvider.GetCreatedResponse());
+            return Created(string.Empty,addBirthdayToListResponseProvider.GetCreatedResponse());
         }
 
         private bool ValidateIfAddBirthDayRequestIsValid(AddBirthdayToTheListRequest addBirthdayToTheListRequest)
         {
-            return _addBirthdayRequestValidator.Validate(addBirthdayToTheListRequest).IsValid;
+            var addBirthdayRequestValidator = new AddBirthdayToListRequestValidator();
+
+            return addBirthdayRequestValidator.Validate(addBirthdayToTheListRequest).IsValid;
         }
     }
 }

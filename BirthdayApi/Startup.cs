@@ -19,6 +19,9 @@ namespace BirthdayApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<IGetBirthdayPeopleDetailsResponseProvider, GetBirthdayPeopleDetailsResponseProvider>();
+            services.AddSingleton<IAddBirthdayToListResponseProvider, AddBirthdayToListResponseProvider>();
+            services.AddSingleton<IAddBirthdayToTheListHelper, AddBirthdayToTheListHelper>();
 
             services.AddMvc(options =>
             {
