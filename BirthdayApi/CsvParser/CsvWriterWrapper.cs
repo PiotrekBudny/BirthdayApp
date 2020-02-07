@@ -12,13 +12,14 @@ namespace BirthdayApi.CsvParser
        
     public class CsvWriterWrapper : ICsvWriterWrapper
     {
-        ConfigurationWrapper configurationWrapper;
-        CsvReaderWrapper csvReaderWrapper;
+        IConfigurationWrapper configurationWrapper;
+        ICsvReaderWrapper csvReaderWrapper;
         
-        public CsvWriterWrapper()
+        public CsvWriterWrapper(IConfigurationWrapper configurationWrapper, 
+                                ICsvReaderWrapper csvReaderWrapper)
         {
-            configurationWrapper = new ConfigurationWrapper();
-            csvReaderWrapper = new CsvReaderWrapper();
+            this.configurationWrapper = configurationWrapper;
+            this.csvReaderWrapper = csvReaderWrapper;
         }
         
         public void WriteToBirthdayCsvFile(BirthdayPerson birthdayPerson)

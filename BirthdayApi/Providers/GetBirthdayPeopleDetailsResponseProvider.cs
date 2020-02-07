@@ -14,18 +14,18 @@ namespace BirthdayApi.Providers
 
     public class GetBirthdayPeopleDetailsResponseProvider : IGetBirthdayPeopleDetailsResponseProvider
     {
-        private CsvReaderWrapper _csvReaderWrapper;
-        private BirthdayValidator _birthdayValidator;
+        ICsvReaderWrapper csvReaderWrapper;
+        IBirthdayValidator birthdayValidator;
 
-        public GetBirthdayPeopleDetailsResponseProvider()
+        public GetBirthdayPeopleDetailsResponseProvider(ICsvReaderWrapper csvReaderWrapper, IBirthdayValidator birthdayValidator)
         {
-            _csvReaderWrapper = new CsvReaderWrapper();
-            _birthdayValidator = new BirthdayValidator();
+            this.csvReaderWrapper = csvReaderWrapper;
+            this.birthdayValidator = birthdayValidator;
         }
 
         public GetBirthDayPeopleDetailsResponse GetBirthdaysFilteringByLastName(string lastName)
         {
-            var peoplelist = _csvReaderWrapper.ReadFromBirthDayCsvFile()
+            var peoplelist = csvReaderWrapper.ReadFromBirthDayCsvFile()
                     .FindAll(x => x.LastName == lastName);
 
             return BuildGetBirthdayPeopleDetailsResponse(peoplelist);
@@ -33,7 +33,7 @@ namespace BirthdayApi.Providers
 
         public GetBirthDayPeopleDetailsResponse GetBirthdaysForToday()
         {
-            var peopleList = _csvReaderWrapper.ReadFromBirthDayCsvFile()
+            var peopleList = csvReaderWrapper.ReadFromBirthDayCsvFile()
                                  .Where((x) => ValidateIfTodayIsSomeonesBirthday(x.DayOfBirth)).ToList();
 
             return BuildGetBirthdayPeopleDetailsResponse(peopleList);
@@ -41,7 +41,7 @@ namespace BirthdayApi.Providers
 
         private bool ValidateIfTodayIsSomeonesBirthday(string dateToValidate)
         {
-            return _birthdayValidator.ValidateIfTodayIsPersonBirthday(dateToValidate);
+            return birthdayValidator.ValidateIfTodayIsPersonBirthday(dateToValidate);
         }
 
         private GetBirthDayPeopleDetailsResponse BuildGetBirthdayPeopleDetailsResponse(List<BirthdayPerson> peopleList)
