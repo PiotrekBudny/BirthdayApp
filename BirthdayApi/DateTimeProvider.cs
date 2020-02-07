@@ -9,11 +9,6 @@ namespace BirthdayApi
        
     public class DateTimeProvider : IDateTimeProvider
     {
-        public DateTime UtcNow { get; }
-
-        public DateTimeProvider()
-        {
-            UtcNow = DateTime.UtcNow;
-        }
+        public DateTime UtcNow { get { return DateTime.UtcNow;  } }
     }
 }
