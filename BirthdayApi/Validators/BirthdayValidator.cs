@@ -9,11 +9,9 @@ namespace BirthdayApi.Validators
 
     public class BirthdayValidator : IBirthdayValidator
     {
-        private IDateTimeProvider _dateTimeProvider;
-
         public bool ValidateIfTodayIsPersonBirthday(string dateTime)
         {
-            var currentDate = _dateTimeProvider.UtcNow;
+            var currentDate = new DateTimeProvider().UtcNow;
 
             var birthday = StringFormatter.ParseToDateTimeWithoutTime(dateTime);
 
