@@ -15,12 +15,10 @@ namespace BirthdayApi.Providers
     public class GetBirthdayPeopleDetailsResponseProvider : IGetBirthdayPeopleDetailsResponseProvider
     {
         ICsvReaderWrapper csvReaderWrapper;
-        IBirthdayValidator birthdayValidator;
 
-        public GetBirthdayPeopleDetailsResponseProvider(ICsvReaderWrapper csvReaderWrapper, IBirthdayValidator birthdayValidator)
+        public GetBirthdayPeopleDetailsResponseProvider(ICsvReaderWrapper csvReaderWrapper)
         {
             this.csvReaderWrapper = csvReaderWrapper;
-            this.birthdayValidator = birthdayValidator;
         }
 
         public GetBirthDayPeopleDetailsResponse GetBirthdaysFilteringByLastName(string lastName)
@@ -41,6 +39,7 @@ namespace BirthdayApi.Providers
 
         private bool ValidateIfTodayIsSomeonesBirthday(string dateToValidate)
         {
+            var birthdayValidator = new BirthdayValidator();
             return birthdayValidator.ValidateIfTodayIsPersonBirthday(dateToValidate);
         }
 
