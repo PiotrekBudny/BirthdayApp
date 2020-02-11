@@ -11,11 +11,11 @@ namespace BirthdayApi
 
     public class AddBirthdayToTheListHelper : IAddBirthdayToTheListHelper
     {
-        CsvWriterWrapper csvWriterWrapper;
+        ICsvWriterWrapper csvWriterWrapper;
 
-        public AddBirthdayToTheListHelper()
+        public AddBirthdayToTheListHelper(ICsvWriterWrapper csvWriterWrapper)
         {
-            csvWriterWrapper = new CsvWriterWrapper();
+            this.csvWriterWrapper = csvWriterWrapper;
         }
 
         public void AddNewBirthdayPersonToCsvfile(AddBirthdayToTheListRequest addBirthdayToTheListRequest)

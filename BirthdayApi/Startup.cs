@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using BirthdayApi.CsvParser;
+using BirthdayApi.Providers;
+using BirthdayApi.Validators;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -19,9 +22,14 @@ namespace BirthdayApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSingleton<IConfigurationWrapper, ConfigurationWrapper>();
             services.AddSingleton<IGetBirthdayPeopleDetailsResponseProvider, GetBirthdayPeopleDetailsResponseProvider>();
             services.AddSingleton<IAddBirthdayToListResponseProvider, AddBirthdayToListResponseProvider>();
             services.AddSingleton<IAddBirthdayToTheListHelper, AddBirthdayToTheListHelper>();
+            services.AddSingleton<ICsvReaderWrapper, CsvReaderWrapper>();
+            services.AddSingleton<ICsvWriterWrapper, CsvWriterWrapper>();
+            services.AddSingleton<IBirthdayValidator, BirthdayValidator>();
 
             services.AddMvc(options =>
             {

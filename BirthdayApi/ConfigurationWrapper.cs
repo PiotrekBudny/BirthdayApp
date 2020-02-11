@@ -7,16 +7,16 @@ namespace BirthdayApi
         public string GetBirthdayCsvFilePath();
     }
      
-    public class ConfigurationWrapper
+    public class ConfigurationWrapper : IConfigurationWrapper
     {
-        public  string GetBirthdayCsvFilePath()
+        public string GetBirthdayCsvFilePath()
         {
-        return InitializeConfigurationBuilder().Build()["Filepath:Birthdaycsv"];            
+            return InitializeConfigurationBuilder().Build()["Filepath:Birthdaycsv"];            
         }
         
         private  IConfigurationBuilder InitializeConfigurationBuilder()
         {
-        return new ConfigurationBuilder().AddJsonFile("appsettings.json");
+            return new ConfigurationBuilder().AddJsonFile("appsettings.json");
         }   
     }
 }

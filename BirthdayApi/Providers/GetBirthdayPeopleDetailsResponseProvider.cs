@@ -4,8 +4,8 @@ using BirthdayApi.Validators;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BirthdayApi
-{   
+namespace BirthdayApi.Providers
+{
     public interface IGetBirthdayPeopleDetailsResponseProvider
     {
         GetBirthDayPeopleDetailsResponse GetBirthdaysFilteringByLastName(string lastName);
@@ -14,18 +14,16 @@ namespace BirthdayApi
 
     public class GetBirthdayPeopleDetailsResponseProvider : IGetBirthdayPeopleDetailsResponseProvider
     {
-        private CsvReaderWrapper _csvReaderWrapper;
-        private BirthdayValidator _birthdayValidator;
+        ICsvReaderWrapper csvReaderWrapper;
 
-        public GetBirthdayPeopleDetailsResponseProvider()
+        public GetBirthdayPeopleDetailsResponseProvider(ICsvReaderWrapper csvReaderWrapper)
         {
-            _csvReaderWrapper = new CsvReaderWrapper();
-            _birthdayValidator = new BirthdayValidator();
+            this.csvReaderWrapper = csvReaderWrapper;
         }
 
         public GetBirthDayPeopleDetailsResponse GetBirthdaysFilteringByLastName(string lastName)
         {
-            var peoplelist = _csvReaderWrapper.ReadFromBirthDayCsvFile()
+            var peoplelist = csvReaderWrapper.ReadFromBirthDayCsvFile()
                     .FindAll(x => x.LastName == lastName);
 
             return BuildGetBirthdayPeopleDetailsResponse(peoplelist);
@@ -33,7 +31,7 @@ namespace BirthdayApi
 
         public GetBirthDayPeopleDetailsResponse GetBirthdaysForToday()
         {
-            var peopleList = _csvReaderWrapper.ReadFromBirthDayCsvFile()
+            var peopleList = csvReaderWrapper.ReadFromBirthDayCsvFile()
                                  .Where((x) => ValidateIfTodayIsSomeonesBirthday(x.DayOfBirth)).ToList();
 
             return BuildGetBirthdayPeopleDetailsResponse(peopleList);
@@ -41,7 +39,8 @@ namespace BirthdayApi
 
         private bool ValidateIfTodayIsSomeonesBirthday(string dateToValidate)
         {
-            return _birthdayValidator.ValidateIfTodayIsPersonBirthday(dateToValidate);
+            var birthdayValidator = new BirthdayValidator();
+            return birthdayValidator.ValidateIfTodayIsPersonBirthday(dateToValidate);
         }
 
         private GetBirthDayPeopleDetailsResponse BuildGetBirthdayPeopleDetailsResponse(List<BirthdayPerson> peopleList)
@@ -50,6 +49,6 @@ namespace BirthdayApi
             {
                 BirthdayPeopleList = peopleList
             };
-        }    
+        }
     }
 }

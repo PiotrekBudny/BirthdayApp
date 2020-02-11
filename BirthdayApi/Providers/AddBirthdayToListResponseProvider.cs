@@ -1,6 +1,6 @@
 ﻿using BirthdayApi.Models;
 
-namespace BirthdayApi
+namespace BirthdayApi.Providers
 {
     public interface IAddBirthdayToListResponseProvider
     {
