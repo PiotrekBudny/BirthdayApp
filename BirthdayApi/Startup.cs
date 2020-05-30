@@ -1,9 +1,11 @@
 ﻿using BirthdayApi.CsvParser;
 using BirthdayApi.Providers;
 using BirthdayApi.Validators;
+using BirthdayApp.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,16 +26,18 @@ namespace BirthdayApi
             services.AddControllers();
 
             services.AddSingleton<IConfigurationWrapper, ConfigurationWrapper>();
-            services.AddSingleton<IGetBirthdayPeopleDetailsResponseProvider, GetBirthdayPeopleDetailsResponseProvider>();
+            services
+                .AddSingleton<IGetBirthdayPeopleDetailsResponseProvider, GetBirthdayPeopleDetailsResponseProvider>();
             services.AddSingleton<IAddBirthdayToListResponseProvider, AddBirthdayToListResponseProvider>();
             services.AddSingleton<IAddBirthdayToTheListHelper, AddBirthdayToTheListHelper>();
             services.AddSingleton<ICsvReaderWrapper, CsvReaderWrapper>();
             services.AddSingleton<ICsvWriterWrapper, CsvWriterWrapper>();
             services.AddSingleton<IBirthdayValidator, BirthdayValidator>();
 
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(new ProducesAttribute("application/json"));
+            services.AddMvc(options => { options.Filters.Add(new ProducesAttribute("application/json")); });
+
+            services.AddDbContext<BirthdayDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("BirthdayDbContext"));
             });
         }
 

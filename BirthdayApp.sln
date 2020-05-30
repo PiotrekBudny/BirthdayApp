@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayApi", "BirthdayApi\BirthdayApi.csproj", "{F005E4F6-C517-47DE-8158-EFE7C6B97F85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayApp.UnitTests", "BirthdayApp.UnitTests\BirthdayApp.UnitTests.csproj", "{BECE6DCE-6C20-485F-B691-EFF12497B0DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirthdayApp.UnitTests", "BirthdayApp.UnitTests\BirthdayApp.UnitTests.csproj", "{BECE6DCE-6C20-485F-B691-EFF12497B0DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirthdayApp.Database", "BirthdayApp.Database\BirthdayApp.Database.csproj", "{2FDEFC7D-33E1-430E-ACD8-C8E7763DDC3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{BECE6DCE-6C20-485F-B691-EFF12497B0DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BECE6DCE-6C20-485F-B691-EFF12497B0DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BECE6DCE-6C20-485F-B691-EFF12497B0DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FDEFC7D-33E1-430E-ACD8-C8E7763DDC3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FDEFC7D-33E1-430E-ACD8-C8E7763DDC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FDEFC7D-33E1-430E-ACD8-C8E7763DDC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FDEFC7D-33E1-430E-ACD8-C8E7763DDC3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

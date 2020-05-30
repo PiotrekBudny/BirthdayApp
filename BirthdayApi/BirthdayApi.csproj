@@ -16,10 +16,15 @@
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="13.0.0" />
     <PackageReference Include="FluentValidation" Version="8.6.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BirthdayApp.Database\BirthdayApp.Database.csproj" />
   </ItemGroup>
 
   <ItemGroup>
