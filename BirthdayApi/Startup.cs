@@ -36,9 +36,7 @@ namespace BirthdayApi
 
             services.AddMvc(options => { options.Filters.Add(new ProducesAttribute("application/json")); });
 
-            services.AddDbContext<BirthdayDbContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("BirthdayDbContext"));
-            });
+            services.AddDbContext<BirthdayDbContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

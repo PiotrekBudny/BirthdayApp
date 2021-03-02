@@ -26,7 +26,7 @@ namespace BirthdayApi.CsvParser
             using (var reader = new StreamReader(configurationWrapper.GetBirthdayCsvFilePath()))
             using (var csvReader = new CsvReader(reader, new CultureInfo("EN")))
             {
-                csvReader.Configuration.HasHeaderRecord = true;
+                //csvReader.Configuration.HasHeaderRecord = true;
 
                 return csvReader.GetRecords<BirthdayPerson>().ToList();
             }

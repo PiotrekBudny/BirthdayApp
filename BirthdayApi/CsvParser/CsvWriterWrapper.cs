@@ -30,7 +30,7 @@ namespace BirthdayApi.CsvParser
             using (var stream = new StreamWriter(configurationWrapper.GetBirthdayCsvFilePath()))
             using (var writer = new CsvWriter(stream, new CultureInfo("EN")))
             {
-                writer.Configuration.HasHeaderRecord = true;                
+                //writer.Configuration.HasHeaderRecord = true;                
                 writer.WriteRecords(currentRecords);
             }
           }
