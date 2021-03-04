@@ -1,9 +1,8 @@
-﻿using System.Reflection;
-using BirthdayApp.Database.Models;
+﻿using BirthdayTracker.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace BirthdayApp.Database
+namespace BirthdayTracker.Database
 {
     public class BirthdayDbContext : DbContext
     {
@@ -28,11 +27,25 @@ namespace BirthdayApp.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasOne(a => a.BirthdayInfo).WithOne(b => b.User)
-                .HasForeignKey<BirthdayInfo>(e => e.BirthdayId);
+                .HasOne(b => b.BirthdayInfo)
+                .WithOne(i => i.User)
+                .HasForeignKey<BirthdayInfo>(b => b.UserId);
 
             modelBuilder.Entity<User>().ToTable("User");
             modelBuilder.Entity<BirthdayInfo>().ToTable("BirthdayInfo");
+        }
+
+        public void AddUserWithBirthdayInfo(User userData, BirthdayInfo birthdayInfo)
+        {
+            using var contextTransaction = Database.BeginTransaction();
+
+            userData.BirthdayInfo = birthdayInfo;
+            
+            User.Add(userData);
+        
+            SaveChanges();
+
+            contextTransaction.Commit();
         }
 
     }

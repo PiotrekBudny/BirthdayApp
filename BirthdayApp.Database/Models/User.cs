@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BirthdayApp.Database.Models
+namespace BirthdayTracker.Database.Models
 {
     public class User
     {
@@ -11,7 +8,6 @@ namespace BirthdayApp.Database.Models
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int BirthdayId { get; set; }
         public BirthdayInfo BirthdayInfo { get; set; }
     }
 }

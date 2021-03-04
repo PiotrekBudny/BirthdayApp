@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BirthdayApp.Database.Migrations
+namespace BirthdayTracker.Database.Migrations
 {
     public partial class RemoveNotNeededFields : Migration
     {

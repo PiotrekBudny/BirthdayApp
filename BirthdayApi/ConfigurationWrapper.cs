@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace BirthdayApi
+namespace BirthdayTracker.Web
 {
     public interface IConfigurationWrapper
     {

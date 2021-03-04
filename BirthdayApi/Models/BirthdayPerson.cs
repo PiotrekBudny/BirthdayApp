@@ -1,4 +1,4 @@
-﻿namespace BirthdayApi.Models
+﻿namespace BirthdayTracker.Web.Models
 {
     public class BirthdayPerson
     {

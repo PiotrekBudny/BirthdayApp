@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace BirthdayApi.Models
+namespace BirthdayTracker.Web.Models
 {
     public class GetBirthDayPeopleDetailsResponse
     {

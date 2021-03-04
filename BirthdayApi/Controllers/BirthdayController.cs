@@ -1,12 +1,13 @@
-﻿using BirthdayApi.Models;
-using BirthdayApi.Providers;
-using BirthdayApi.Validators;
+﻿using System;
+using System.Linq;
+using BirthdayTracker.Database;
+using BirthdayTracker.Web.Models;
+using BirthdayTracker.Web.Providers;
+using BirthdayTracker.Web.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 
-namespace BirthdayApi.Controllers
+namespace BirthdayTracker.Web.Controllers
 {
     [ApiController]
     [Route("api/birthdaycontroller")]
@@ -14,15 +15,18 @@ namespace BirthdayApi.Controllers
     {
         IGetBirthdayPeopleDetailsResponseProvider getBirthdayPeopleDetailsResponseProvider;
         IAddBirthdayToListResponseProvider addBirthdayToListResponseProvider;
-        IAddBirthdayToTheListHelper addBirthdayHelper;
+        IAddBirthdayHelper addBirthdayHelper;
+        BirthdayDbContext _dbContext;
 
         public BirthdayController(IGetBirthdayPeopleDetailsResponseProvider getBirthdayPeopleDetailsResponseProvider,
                                   IAddBirthdayToListResponseProvider addBirthdayToListResponseProvider,
-                                  IAddBirthdayToTheListHelper addBirthdayHelper)
+                                  IAddBirthdayHelper addBirthdayHelper,
+                                  BirthdayDbContext dbContext)
         {
             this.addBirthdayToListResponseProvider = addBirthdayToListResponseProvider;
             this.getBirthdayPeopleDetailsResponseProvider = getBirthdayPeopleDetailsResponseProvider;
             this.addBirthdayHelper = addBirthdayHelper;
+            this._dbContext = dbContext;
         }
                 
         [HttpGet("lastname/{lastname}")]
@@ -89,7 +93,10 @@ namespace BirthdayApi.Controllers
             
             try
             {
-                addBirthdayHelper.AddNewBirthdayPersonToCsvfile(addBirthdayToTheListRequest);
+                var mapper = new AddBirthdayToDatabaseEntityMapper();
+                mapper.MapRequestToDatabaseEntities(addBirthdayToTheListRequest);
+                
+                _dbContext.AddUserWithBirthdayInfo(mapper.GetMappedUserEntity, mapper.GetMappedBirthdayInfoEntity);
             }
             
             catch(Exception exception)

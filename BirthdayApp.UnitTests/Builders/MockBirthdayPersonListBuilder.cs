@@ -1,9 +1,9 @@
-﻿using BirthdayApi.Models;
-using BirthdayApi.Providers;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using BirthdayTracker.Web.Models;
+using BirthdayTracker.Web.Providers;
 
-namespace BirthdayApp.UnitTests.Builders
+namespace BirthdayTracker.UnitTests.Builders
 {
     public class MockBirthdayPersonListBuilder
     {

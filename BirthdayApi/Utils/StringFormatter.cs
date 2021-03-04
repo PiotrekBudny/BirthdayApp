@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BirthdayApi.Utils
+namespace BirthdayTracker.Web.Utils
 {
     public static class StringFormatter
     {

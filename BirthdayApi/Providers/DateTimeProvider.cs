@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BirthdayApi.Providers
+namespace BirthdayTracker.Web.Providers
 {
     public interface IDateTimeProvider
     {

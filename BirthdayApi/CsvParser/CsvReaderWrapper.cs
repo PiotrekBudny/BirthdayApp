@@ -1,11 +1,11 @@
-﻿using BirthdayApi.Models;
-using CsvHelper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using BirthdayTracker.Web.Models;
+using CsvHelper;
 
-namespace BirthdayApi.CsvParser
+namespace BirthdayTracker.Web.CsvParser
 {  
     public interface ICsvReaderWrapper
     {

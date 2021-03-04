@@ -1,10 +1,10 @@
-﻿using BirthdayApi.CsvParser;
-using BirthdayApi.Providers;
+﻿using BirthdayTracker.UnitTests.Builders;
+using BirthdayTracker.Web.CsvParser;
+using BirthdayTracker.Web.Providers;
 using Moq;
 using NUnit.Framework;
-using BirthdayApp.UnitTests.Builders;
 
-namespace BirthdayApp.UnitTests
+namespace BirthdayTracker.UnitTests
 {
     [TestFixture]
     public class GetBirthdayPeopleDetailsResponseProviderTests

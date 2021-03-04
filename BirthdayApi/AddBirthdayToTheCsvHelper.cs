@@ -1,24 +1,23 @@
-﻿
-using BirthdayApi.CsvParser;
-using BirthdayApi.Models;
+﻿using BirthdayTracker.Web.CsvParser;
+using BirthdayTracker.Web.Models;
 
-namespace BirthdayApi
+namespace BirthdayTracker.Web
 {
-    public interface IAddBirthdayToTheListHelper
+    public interface IAddBirthdayHelper
     {
-        public void AddNewBirthdayPersonToCsvfile(AddBirthdayToTheListRequest addBirthdayToTheListRequest);
+        public void AddNewBirthdayPerson(AddBirthdayToTheListRequest addBirthdayToTheListRequest);
     }
 
-    public class AddBirthdayToTheListHelper : IAddBirthdayToTheListHelper
+    public class AddBirthdayToCsvHelper : IAddBirthdayHelper
     {
         ICsvWriterWrapper csvWriterWrapper;
 
-        public AddBirthdayToTheListHelper(ICsvWriterWrapper csvWriterWrapper)
+        public AddBirthdayToCsvHelper(ICsvWriterWrapper csvWriterWrapper)
         {
             this.csvWriterWrapper = csvWriterWrapper;
         }
 
-        public void AddNewBirthdayPersonToCsvfile(AddBirthdayToTheListRequest addBirthdayToTheListRequest)
+        public void AddNewBirthdayPerson(AddBirthdayToTheListRequest addBirthdayToTheListRequest)
         {
             var birthdayPerson = MapRequestToBirthDayPerson(addBirthdayToTheListRequest);
 
@@ -31,7 +30,7 @@ namespace BirthdayApi
             {
                 LastName = addBirthdayToTheListRequest.LastName,
                 FirstName = addBirthdayToTheListRequest.FirstName,
-                DayOfBirth = addBirthdayToTheListRequest.DayOfBirth
+                DayOfBirth = addBirthdayToTheListRequest.DateOfBirth
             };
         }
     }

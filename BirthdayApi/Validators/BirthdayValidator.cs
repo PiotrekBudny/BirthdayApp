@@ -1,8 +1,8 @@
-﻿using BirthdayApi.Providers;
-using BirthdayApi.Utils;
-using System;
+﻿using System;
+using BirthdayTracker.Web.Providers;
+using BirthdayTracker.Web.Utils;
 
-namespace BirthdayApi.Validators
+namespace BirthdayTracker.Web.Validators
 {
     public interface IBirthdayValidator
     {

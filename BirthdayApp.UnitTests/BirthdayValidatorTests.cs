@@ -1,8 +1,8 @@
-using NUnit.Framework;
-using BirthdayApi.Validators;
 using System;
+using BirthdayTracker.Web.Validators;
+using NUnit.Framework;
 
-namespace BirthdayApp.UnitTests
+namespace BirthdayTracker.UnitTests
 {
     [TestFixture]
     public class BirthdayValidatorTests

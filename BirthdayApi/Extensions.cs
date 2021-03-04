@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace BirthdayApi
+namespace BirthdayTracker.Web
 {
     public static class Extensions
     {

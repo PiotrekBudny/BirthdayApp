@@ -1,6 +1,6 @@
-﻿using BirthdayApi.Models;
+﻿using BirthdayTracker.Web.Models;
 
-namespace BirthdayApi.Providers
+namespace BirthdayTracker.Web.Providers
 {
     public interface IAddBirthdayToListResponseProvider
     {

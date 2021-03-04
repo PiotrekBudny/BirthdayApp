@@ -1,10 +1,10 @@
-﻿using BirthdayApi.CsvParser;
-using BirthdayApi.Models;
-using BirthdayApi.Validators;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BirthdayTracker.Web.CsvParser;
+using BirthdayTracker.Web.Models;
+using BirthdayTracker.Web.Validators;
 
-namespace BirthdayApi.Providers
+namespace BirthdayTracker.Web.Providers
 {
     public interface IGetBirthdayPeopleDetailsResponseProvider
     {

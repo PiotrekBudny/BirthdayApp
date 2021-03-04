@@ -1,9 +1,9 @@
-﻿using BirthdayApi.Models;
-using CsvHelper;
-using System.Globalization;
+﻿using System.Globalization;
 using System.IO;
+using BirthdayTracker.Web.Models;
+using CsvHelper;
 
-namespace BirthdayApi.CsvParser
+namespace BirthdayTracker.Web.CsvParser
 {
     public interface ICsvWriterWrapper
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace BirthdayApi
+namespace BirthdayTracker.Web
 {
     public class Program
     {

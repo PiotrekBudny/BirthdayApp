@@ -1,7 +1,7 @@
-﻿using BirthdayApi.CsvParser;
-using BirthdayApi.Providers;
-using BirthdayApi.Validators;
-using BirthdayApp.Database;
+﻿using BirthdayTracker.Database;
+using BirthdayTracker.Web.CsvParser;
+using BirthdayTracker.Web.Providers;
+using BirthdayTracker.Web.Validators;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace BirthdayApi
+namespace BirthdayTracker.Web
 {
     public class Startup
     {
@@ -29,7 +29,8 @@ namespace BirthdayApi
             services
                 .AddSingleton<IGetBirthdayPeopleDetailsResponseProvider, GetBirthdayPeopleDetailsResponseProvider>();
             services.AddSingleton<IAddBirthdayToListResponseProvider, AddBirthdayToListResponseProvider>();
-            services.AddSingleton<IAddBirthdayToTheListHelper, AddBirthdayToTheListHelper>();
+            services.AddSingleton<IAddBirthdayHelper, AddBirthdayToCsvHelper>();
+
             services.AddSingleton<ICsvReaderWrapper, CsvReaderWrapper>();
             services.AddSingleton<ICsvWriterWrapper, CsvWriterWrapper>();
             services.AddSingleton<IBirthdayValidator, BirthdayValidator>();
